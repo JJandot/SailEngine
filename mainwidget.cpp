@@ -169,7 +169,7 @@ void MainWidget::initializeGL()
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 //! [2]
 
-    geometries = new GeometryEngine;
+    geometries = new Plane;
     geometries->initHeightMapGeometry();
     cameraPosition = QVector3D(0.0,0.0,-5.0);
 
@@ -259,5 +259,5 @@ void MainWidget::paintGL()
     // Draw cube geometry
     //geometries->drawCubeGeometry(&program);
     // Draw plane geometry
-    geometries->drawPlaneGeometry(&program);
+    geometries->drawHeightMapGeometry(&program);
 }

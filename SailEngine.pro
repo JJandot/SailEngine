@@ -5,13 +5,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp
 
+
 SOURCES += \
     mainwidget.cpp \
-    geometryengine.cpp
+    plane.cpp
 
 HEADERS += \
     mainwidget.h \
-    geometryengine.h
+    plane.h
 
 RESOURCES += \
     shaders.qrc \
@@ -20,3 +21,5 @@ RESOURCES += \
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/opengl/cube
 INSTALLS += target
+
+DISTFILES +=

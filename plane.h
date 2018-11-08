@@ -59,20 +59,16 @@
 #include <iostream>
 #include <QColor>
 
-class GeometryEngine : protected QOpenGLFunctions
+class Plane : protected QOpenGLFunctions
 {
 public:
-    GeometryEngine();
-    virtual ~GeometryEngine();
+    Plane();
+    virtual ~Plane();
 
-    void drawCubeGeometry(QOpenGLShaderProgram *program);
-    void drawPlaneGeometry(QOpenGLShaderProgram *program);
+    void drawHeightMapGeometry(QOpenGLShaderProgram *program);
     void initHeightMapGeometry();
 
 private:
-    void initCubeGeometry();
-    void initPlaneGeometry();
-
     QOpenGLBuffer arrayBuf;
     QOpenGLBuffer indexBuf;
 
