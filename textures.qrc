@@ -1,9 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>cube.png</file>
-        <file>heightmap.pgm</file>
-        <file>heightmap-1.png</file>
-        <file>heightmap-2.png</file>
-        <file>heightmap-3.png</file>
+        <file>img/cube.png</file>
+        <file>img/heightmap.pgm</file>
+        <file>img/heightmap-1.png</file>
+        <file>img/heightmap-2.png</file>
+        <file>img/heightmap-3.png</file>
+        <file>img/labelmap1.png</file>
+        <file>img/map1.png</file>
     </qresource>
 </RCC>

@@ -246,8 +246,8 @@ void GeometryEngine::initHeightMapGeometry()
     //heightmap
     std::vector<double> grayLevel;
     int compteur = 0;
-    QImage img(4096, 4096, QImage::Format_RGB32);
-    QImageReader reader(":/heightmap-2.png");
+    QImage img(1280, 1280, QImage::Format_RGB32);
+    QImageReader reader(":/img/map1.png");
     //QImage img(257, 257, QImage::Format_RGB32);
     //QImageReader reader(":/heightmap-1.png");
     double ratio = img.size().height()/nbVertices;
