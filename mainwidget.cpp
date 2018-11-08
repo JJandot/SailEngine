@@ -95,59 +95,43 @@ void MainWidget::mousePressEvent(QMouseEvent *e)
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Q) {
-        cameraPosition += QVector3D(-0.1, 0, 0);
+        cameraPosition += QVector3D(-0.05, 0, 0);
         update();
     }
     if(event->key() == Qt::Key_D) {
-        cameraPosition += QVector3D(+0.1, 0, 0);
+        cameraPosition += QVector3D(+0.05, 0, 0);
         update();
     }
 
     if(event->key() == Qt::Key_Z) {
-        cameraPosition += QVector3D(0, +0.1, 0);
+        cameraPosition += QVector3D(0, 0, +0.05);
         update();
     }
     if(event->key() == Qt::Key_S) {
-        cameraPosition += QVector3D(0, -0.1, 0);
+        cameraPosition += QVector3D(0, 0, -0.05);
+        update();
+    }
+
+    if(event->key() == Qt::Key_R) {
+        cameraPosition += QVector3D(0, +0.05, 0);
+        update();
+    }
+    if(event->key() == Qt::Key_F) {
+        cameraPosition += QVector3D(0, -0.05, 0);
         update();
     }
 }
 
 void MainWidget::mouseReleaseEvent(QMouseEvent *e)
 {
-    // Mouse release position - mouse press position
-    QVector2D diff = QVector2D(e->localPos()) - mousePressPosition;
 
-    // Rotation axis is perpendicular to the mouse position difference
-    // vector
-    QVector3D n = QVector3D(diff.y(), diff.x(), 0.0).normalized();
-
-    // Accelerate angular speed relative to the length of the mouse sweep
-    qreal acc = diff.length() / 100.0;
-
-    // Calculate new rotation axis as weighted sum
-    rotationAxis = (rotationAxis * angularSpeed + n * acc).normalized();
-
-    // Increase angular speed
-    angularSpeed += acc;
 }
 //! [0]
 
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
-    // Decrease angular speed (friction)
-    //angularSpeed *= 0.70;
-    angularSpeed = 0.2;
-    // Stop rotation when speed goes below threshold
-    if (angularSpeed < 0.01) {
-        angularSpeed = 0.0;
-    } else {
-        // Update rotation
-        rotation = QQuaternion::fromAxisAndAngle(rotationAxis, angularSpeed) * rotation;
-        // Request an update
-        update();
-    }
+    update();
 }
 //! [1]
 
@@ -245,10 +229,6 @@ void MainWidget::paintGL()
     // Calculate model view transformation
     QMatrix4x4 matrix;
     matrix.translate(cameraPosition);
-
-    QQuaternion framing = QQuaternion::fromAxisAndAngle(QVector3D(1,0,0),-45.0) * rotation;
-    matrix.rotate(framing);
-
     // Set modelview-projection matrix
     program.setUniformValue("mvp_matrix", projection * matrix);
 //! [6]

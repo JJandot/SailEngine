@@ -81,7 +81,7 @@ Plane::~Plane()
 }
 void Plane::initHeightMapGeometry()
 {
-    int season = 2;
+    int season = 1;
     QVector3D seasonColor;
 
     nbVertices = 64;
