@@ -118,10 +118,12 @@ void Plane::init()
     QImage imgW(heightmapWater.width(), heightmapWater.height(), heightmapWater.format());
     QImageReader readerW(heightmapWaterPath);
     ratio = imgW.size().height()/nbVertices;
+    time %= nbVertices;
     if (readerW.read(&imgW)) {
         for(int i = 0; i < nbVertices; ++i){
             for(int j = 0; j < nbVertices; ++j){
-                int gray = qGray(imgW.pixel(i * ratio, j * ratio));
+                int jValue = ((j+time) % nbVertices) * ratio;
+                int gray = qGray(imgW.pixel(i * ratio, jValue));
                 grayLevelWater.push_back((double) gray/255); //valeurs comprises entre -1 et 1
             }
         }
@@ -203,6 +205,9 @@ void Plane::init()
 
 void Plane::draw(QOpenGLShaderProgram *program)
 {
+    incrementTime();
+    // init();
+
     // Tell OpenGL which VBOs to use
     arrayBuf.bind();
     indexBuf.bind();
