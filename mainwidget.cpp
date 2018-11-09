@@ -50,8 +50,6 @@
 
 #include "mainwidget.h"
 
-#include <QMouseEvent>
-
 #include <math.h>
 #include <iostream>
 
@@ -88,45 +86,13 @@ MainWidget::~MainWidget()
 //! [0]
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
-    // Save mouse press position
-    mousePressPosition = QVector2D(e->localPos());
+    controller.mousePressedEvent(e);
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Q) {
-        cameraPosition += QVector3D(-0.05, 0, 0);
-        update();
-    }
-    if(event->key() == Qt::Key_D) {
-        cameraPosition += QVector3D(+0.05, 0, 0);
-        update();
-    }
-
-    if(event->key() == Qt::Key_Z) {
-        cameraPosition += QVector3D(0, 0, +0.05);
-        update();
-    }
-    if(event->key() == Qt::Key_S) {
-        cameraPosition += QVector3D(0, 0, -0.05);
-        update();
-    }
-
-    if(event->key() == Qt::Key_R) {
-        cameraPosition += QVector3D(0, +0.05, 0);
-        update();
-    }
-    if(event->key() == Qt::Key_F) {
-        cameraPosition += QVector3D(0, -0.05, 0);
-        update();
-    }
+    controller.keyPressedEvent(event);
 }
-
-void MainWidget::mouseReleaseEvent(QMouseEvent *e)
-{
-
-}
-//! [0]
 
 //! [1]
 void MainWidget::timerEvent(QTimerEvent *)
@@ -152,10 +118,11 @@ void MainWidget::initializeGL()
     glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 //! [2]
+    camera.init();
+    controller.setCamera(&camera);
 
     plane = new Plane(":/img/map1.png", ":/img/water.png");
     plane->init();
-    cameraPosition = QVector3D(0.0,0.0,-5.0);
 
     // Use QBasicTimer because its faster than QTimer
     timer.start(timeFps, this);
@@ -228,7 +195,7 @@ void MainWidget::paintGL()
 //! [6]
     // Calculate model view transformation
     QMatrix4x4 matrix;
-    matrix.translate(cameraPosition);
+    matrix.translate(camera.getPosition());
     // Set modelview-projection matrix
     program.setUniformValue("mvp_matrix", projection * matrix);
 //! [6]

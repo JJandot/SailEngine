@@ -52,6 +52,8 @@
 #define MAINWIDGET_H
 
 #include "plane.h"
+#include "controller.h"
+#include "camera.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -64,6 +66,8 @@
 #include <QObject>
 
 class Plane;
+class Camera;
+class Controller;
 
 class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -74,17 +78,9 @@ public:
     MainWidget(int time);
     ~MainWidget();
 
-
-public slots:
-
-
-signals:
-
-
 protected:
     void mousePressEvent(QMouseEvent *e) override;
     void keyPressEvent(QKeyEvent *e) override;
-    void mouseReleaseEvent(QMouseEvent *e) override;
     void timerEvent(QTimerEvent *e) override;
 
     void initializeGL() override;
@@ -103,11 +99,14 @@ private:
 
     QMatrix4x4 projection;
 
-    QVector2D mousePressPosition;
+    //QVector2D mousePressPosition;
     QVector3D rotationAxis;
     qreal angularSpeed;
     QQuaternion rotation;
-    QVector3D cameraPosition;
+
+
+    Camera camera;
+    Controller controller;
 
     int timeFps;
 };
