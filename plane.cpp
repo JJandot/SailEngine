@@ -50,6 +50,7 @@
 
 #include "plane.h"
 #include <iostream>
+#include <cmath>
 
 #include <QVector2D>
 #include <QVector3D>
@@ -61,7 +62,7 @@ struct VertexData
     QVector3D color;
 };
 
-Plane::Plane()
+Plane::Plane(QString hmPath, QString hmWaterPath)
     : indexBuf(QOpenGLBuffer::IndexBuffer)
 {
     initializeOpenGLFunctions();
@@ -70,8 +71,15 @@ Plane::Plane()
     arrayBuf.create();
     indexBuf.create();
 
+    heightmapPath = hmPath;
+    heightmap = QImage(heightmapPath);
+    heightmapWaterPath = hmWaterPath;
+    heightmapWater = QImage(heightmapWaterPath);
+
+    time = 0;
+
     // Initializes cube geometry and transfers it to VBOs
-    initHeightMapGeometry();
+    init();
 }
 
 Plane::~Plane()
@@ -79,61 +87,77 @@ Plane::~Plane()
     arrayBuf.destroy();
     indexBuf.destroy();
 }
-void Plane::initHeightMapGeometry()
+void Plane::init()
 {
-    int season = 1;
-    QVector3D seasonColor;
+    QVector3D colour;
 
     nbVertices = 64;
     // For plane, we need 8 vertices on the same plane z=0
     VertexData vertices[nbVertices*nbVertices] = {};
 
-    //heightmap
-    std::vector<double> grayLevel;
-    int compteur = 0;
-    QImage img(1280, 1280, QImage::Format_RGB32);
-    QImageReader reader(":/img/map1.png");
-    //QImage img(257, 257, QImage::Format_RGB32);
-    //QImageReader reader(":/heightmap-1.png");
+    // heightmap
+    std::vector<double> grayLevelHeightmap;
+    int indiceHeightmap = 0;
+    QImage img(heightmap.width(), heightmap.height(), heightmap.format());
+    QImageReader reader(heightmapPath);
+
     double ratio = img.size().height()/nbVertices;
     if (reader.read(&img)) {
         for(int i = 0; i < nbVertices; ++i){
             for(int j = 0; j < nbVertices; ++j){
                 int gray = qGray(img.pixel(i * ratio, j * ratio));
                 //printf("test(%d;%d) %d = %lf\n",i,j, gray, (double) gray/255);
-                grayLevel.push_back((double) gray/255); //valeurs comprises entre -1 et 1
+                grayLevelHeightmap.push_back((double) gray/255);
             }
         }
     }
+
+    // water heightmap
+    std::vector<double> grayLevelWater;
+    int indiceWater = 0;
+    QImage imgW(heightmapWater.width(), heightmapWater.height(), heightmapWater.format());
+    QImageReader readerW(heightmapWaterPath);
+    ratio = imgW.size().height()/nbVertices;
+    if (readerW.read(&imgW)) {
+        for(int i = 0; i < nbVertices; ++i){
+            for(int j = 0; j < nbVertices; ++j){
+                int gray = qGray(imgW.pixel(i * ratio, j * ratio));
+                grayLevelWater.push_back((double) gray/255); //valeurs comprises entre -1 et 1
+            }
+        }
+    }
+
     double incr = 2./nbVertices;
     for(int j = 0; j < nbVertices; j++) {
         for(int i = 0; i < nbVertices; i++) {
-            switch(season) {
-            case 0: //summer : light on ground
-                seasonColor = QVector3D(1.0, 1.0, grayLevel[compteur]);
-                break;
-            case 1: //fall : orange and red on ground
-                seasonColor = QVector3D(1.0 * ( 1 - grayLevel[compteur]), 0.5 * (1 - grayLevel[compteur]), grayLevel[compteur]);
-                break;
-            case 2: //winter : white on ground
-                if(grayLevel[compteur] <= 0.5)
-                    seasonColor = QVector3D(1.0 * (1 - grayLevel[compteur]), 1.0* (1 - grayLevel[compteur]), 1.0* (1 - grayLevel[compteur]));
-                else
-                    seasonColor = QVector3D(1.0 * grayLevel[compteur], 1.0* grayLevel[compteur], 1.0* grayLevel[compteur]);
-                break;
-            case 3: //spring : light and green on ground
-                seasonColor = QVector3D(grayLevel[compteur], 1.0, grayLevel[compteur]);
-                break;
-            default:
-                seasonColor = QVector3D(1.0, 1.0, 1.0);
-                break;
+            QVector3D positionVector;
+            if(grayLevelHeightmap[indiceHeightmap] <= 0.1) {
+                // water
+                colour = QVector3D(0.1 * grayLevelWater[indiceWater], 0.1 * grayLevelWater[indiceWater], grayLevelWater[indiceWater]);
+                positionVector = QVector3D(i*incr, j*incr, grayLevelWater[indiceWater] * 0.2);
+            } else {
+                // land
+                if(grayLevelHeightmap[indiceHeightmap] <= 0.2) {
+                    // sand
+                    colour = QVector3D(1.0 * grayLevelHeightmap[indiceHeightmap] + 0.3, 0.3 + 1.0* grayLevelHeightmap[indiceHeightmap], grayLevelHeightmap[indiceHeightmap]);
+                } else {
+                    // forest
+                    if(grayLevelHeightmap[indiceHeightmap] <= 0.5) {
+                        colour = QVector3D(0.0, 1.0 * grayLevelHeightmap[indiceHeightmap], 0.0);
+                    } else {
+                        // mountain
+                        colour = QVector3D(1.0 * grayLevelHeightmap[indiceHeightmap], 1.0* grayLevelHeightmap[indiceHeightmap], 1.0* grayLevelHeightmap[indiceHeightmap]);
+                    }
+                }
+                positionVector = QVector3D(i*incr, j*incr, grayLevelHeightmap[indiceHeightmap]);
             }
 
-            vertices[i+j*nbVertices] = {QVector3D(i*incr, j*incr, grayLevel[compteur++]),
+            vertices[i+j*nbVertices] = {positionVector,
                                         QVector2D(i*(1./(nbVertices-1)), j*(1./(nbVertices-1))),
-                                        QVector3D(seasonColor[0], seasonColor[1], seasonColor[2])};
-
-            //std::cout << i+j*n << ";(" << i*(1./(n-1)) << "," <<j*(1./(n-1))<< ")|";
+                                        QVector3D(colour[0], colour[1], colour[2])};
+            indiceWater++;
+            //indiceWater%imgW.size().height();
+            indiceHeightmap++;
         }
         //std::cout << std::endl;
     }
@@ -177,7 +201,7 @@ void Plane::initHeightMapGeometry()
 
 }
 
-void Plane::drawHeightMapGeometry(QOpenGLShaderProgram *program)
+void Plane::draw(QOpenGLShaderProgram *program)
 {
     // Tell OpenGL which VBOs to use
     arrayBuf.bind();
@@ -208,3 +232,5 @@ void Plane::drawHeightMapGeometry(QOpenGLShaderProgram *program)
     // Draw cube geometry using indices from VBO 1
     glDrawElements(GL_TRIANGLE_STRIP, nbVertices*nbVertices*nbVertices, GL_UNSIGNED_SHORT, 0);
 }
+
+void Plane::incrementTime() { time ++; }

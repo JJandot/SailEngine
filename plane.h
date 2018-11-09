@@ -62,17 +62,25 @@
 class Plane : protected QOpenGLFunctions
 {
 public:
-    Plane();
+    Plane(QString hmPath, QString hmWaterPath);
     virtual ~Plane();
 
-    void drawHeightMapGeometry(QOpenGLShaderProgram *program);
-    void initHeightMapGeometry();
+    void draw(QOpenGLShaderProgram *program);
+    void init();
+    void incrementTime();
 
 private:
     QOpenGLBuffer arrayBuf;
     QOpenGLBuffer indexBuf;
 
+
+    QString heightmapPath;
+    QImage heightmap;
+    QString heightmapWaterPath;
+    QImage heightmapWater;
+
     int nbVertices;
+    int time;
 };
 
 #endif // GEOMETRYENGINE_H

@@ -97,7 +97,7 @@ protected:
 private:
     QBasicTimer timer;
     QOpenGLShaderProgram program;
-    Plane *geometries;
+    Plane *plane;
 
     QOpenGLTexture *texture;
 

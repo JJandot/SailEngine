@@ -7,5 +7,6 @@
         <file>img/heightmap-3.png</file>
         <file>img/labelmap1.png</file>
         <file>img/map1.png</file>
+        <file>img/water.png</file>
     </qresource>
 </RCC>

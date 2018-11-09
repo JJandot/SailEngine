@@ -57,7 +57,7 @@
 
 MainWidget::MainWidget(QWidget *parent, int time) :
     QOpenGLWidget(parent),
-    geometries(0),
+    plane(0),
     texture(0),
     angularSpeed(1)
 {
@@ -67,7 +67,7 @@ MainWidget::MainWidget(QWidget *parent, int time) :
 
 MainWidget::MainWidget(int time) :
     QOpenGLWidget(0),
-    geometries(0),
+    plane(0),
     texture(0),
     angularSpeed(1)
 {
@@ -81,7 +81,7 @@ MainWidget::~MainWidget()
     // and the buffers.
     makeCurrent();
     delete texture;
-    delete geometries;
+    delete plane;
     doneCurrent();
 }
 
@@ -153,8 +153,8 @@ void MainWidget::initializeGL()
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 //! [2]
 
-    geometries = new Plane;
-    geometries->initHeightMapGeometry();
+    plane = new Plane(":/img/map1.png", ":/img/water.png");
+    plane->init();
     cameraPosition = QVector3D(0.0,0.0,-5.0);
 
     // Use QBasicTimer because its faster than QTimer
@@ -187,7 +187,7 @@ void MainWidget::initTextures()
 {
     // Load cube.png image
     //texture = new QOpenGLTexture(QImage(":/cube.png").mirrored());
-    texture = new QOpenGLTexture(QImage(":/img/heightmap-1.png").mirrored());
+    texture = new QOpenGLTexture(QImage(":/img/map1.png").mirrored());
 
     // Set nearest filtering mode for texture minification
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
@@ -239,5 +239,6 @@ void MainWidget::paintGL()
     // Draw cube geometry
     //geometries->drawCubeGeometry(&program);
     // Draw plane geometry
-    geometries->drawHeightMapGeometry(&program);
+    plane->draw(&program);
+    plane->incrementTime();
 }
