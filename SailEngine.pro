@@ -1,4 +1,5 @@
 QT       += core gui widgets
+QT += 3dcore 3drender 3dinput 3dlogic 3dextras 3danimation
 
 TARGET = SailEngine
 TEMPLATE = app
@@ -15,7 +16,8 @@ SOURCES += main.cpp \
     ship.cpp \
     resource.cpp \
     ia.cpp \
-    island.cpp
+    island.cpp \
+    testmain.cpp
 
 HEADERS += \
     mainwidget.h \
@@ -29,8 +31,7 @@ HEADERS += \
     ship.h \
     resource.h \
     ia.h \
-    island.h \
-    pixel.h
+    island.h
 
 RESOURCES += \
     shaders.qrc \
