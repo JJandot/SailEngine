@@ -93,7 +93,7 @@ void Plane::init()
 
     nbVertices = 64;
     // For plane, we need 8 vertices on the same plane z=0
-    VertexData vertices[nbVertices*nbVertices] = {};
+    VertexData *vertices = (VertexData*)malloc(nbVertices * nbVertices * sizeof(VertexData));
 
     // heightmap
     std::vector<double> grayLevelHeightmap;
@@ -165,7 +165,7 @@ void Plane::init()
         //std::cout << std::endl;
     }
     //std::cout << "indices" << std::endl;
-    GLushort indices[nbVertices*nbVertices*nbVertices] = {};
+    GLushort *indices = (GLushort*) malloc(nbVertices*nbVertices*nbVertices * sizeof(GLushort));
     // bg, bd, hg, hd
     // 16, 0, 17, 1, ... n, n : one line
 
