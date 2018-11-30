@@ -52,6 +52,7 @@
 
 #include <math.h>
 #include <iostream>
+#include <QColor>
 
 MainWidget::MainWidget(QWidget *parent, int time) :
     QOpenGLWidget(parent),
@@ -83,7 +84,6 @@ MainWidget::~MainWidget()
     doneCurrent();
 }
 
-//! [0]
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
     controller.mousePressedEvent(e);
@@ -94,12 +94,10 @@ void MainWidget::keyPressEvent(QKeyEvent *event)
     controller.keyPressedEvent(event);
 }
 
-//! [1]
 void MainWidget::timerEvent(QTimerEvent *)
 {
     update();
 }
-//! [1]
 
 void MainWidget::initializeGL()
 {
@@ -110,25 +108,34 @@ void MainWidget::initializeGL()
     initShaders();
     initTextures();
 
-//! [2]
     // Enable depth buffer
     glEnable(GL_DEPTH_TEST);
 
     // Enable back face culling
     glEnable(GL_CULL_FACE);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//! [2]
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+//!
+//!
+//! GAME INITIALISATION
+//!
+//!
     camera.init();
     controller.setCamera(&camera);
 
     plane = new Plane(":/img/map1.png", ":/img/water.png");
     plane->init();
 
+    initIslands(":/img/labelmap1.png");
+    for(int i = 0; i < 256; i++) {
+        if(islands[i].getNbPixels() != 0) {
+            std::cout << islands[i].getNbPixels() << std::endl;
+        }
+    }
     // Use QBasicTimer because its faster than QTimer
     timer.start(timeFps, this);
 }
 
-//! [3]
 void MainWidget::initShaders()
 {
     // Compile vertex shader
@@ -147,9 +154,7 @@ void MainWidget::initShaders()
     if (!program.bind())
         close();
 }
-//! [3]
 
-//! [4]
 void MainWidget::initTextures()
 {
     // Load cube.png image
@@ -166,9 +171,7 @@ void MainWidget::initTextures()
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     texture->setWrapMode(QOpenGLTexture::Repeat);
 }
-//! [4]
 
-//! [5]
 void MainWidget::resizeGL(int w, int h)
 {
     // Calculate aspect ratio
@@ -183,7 +186,6 @@ void MainWidget::resizeGL(int w, int h)
     // Set perspective projection
     projection.perspective(fov, aspect, zNear, zFar);
 }
-//! [5]
 
 void MainWidget::paintGL()
 {
@@ -192,13 +194,11 @@ void MainWidget::paintGL()
 
     texture->bind();
 
-//! [6]
     // Calculate model view transformation
     QMatrix4x4 matrix;
     matrix.translate(camera.getPosition());
     // Set modelview-projection matrix
     program.setUniformValue("mvp_matrix", projection * matrix);
-//! [6]
 
     // Use texture unit 0 which contains cube.png
     program.setUniformValue("texture", 0);
@@ -208,4 +208,31 @@ void MainWidget::paintGL()
     // Draw plane geometry
     plane->draw(&program);
     plane->incrementTime();
+}
+
+void MainWidget::initIslands(QString path)
+{
+    QImage img(path);
+    if(!img.isNull()) {
+        int labels[256];
+        memset((void*) labels, 0, sizeof(labels));
+        QImageReader reader(path);
+        if(reader.canRead() && reader.read(&img)) {
+            for(int i = 0; i < img.width(); i++) {
+                for(int j = 0; j < img.height(); j++) {
+                    unsigned int value = qRed(img.pixel(i,j));
+                    if(value != 0) {
+                        if(labels[value] == 0) {
+                            //nouvelle ile
+                            islands[value].setLabel(value);
+                            std::cout << "nouvelle ile " << value << std::endl;
+                        }
+                        labels[value]++;
+                        Pixel p; p.px = i; p.py = j;
+                        islands[value].addPixel(p);
+                    }
+                }
+            }
+        }
+    }
 }

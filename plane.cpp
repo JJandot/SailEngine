@@ -129,6 +129,7 @@ void Plane::init()
         }
     }
 
+    // islands
     double incr = 2./nbVertices;
     for(int j = 0; j < nbVertices; j++) {
         for(int i = 0; i < nbVertices; i++) {
@@ -206,7 +207,7 @@ void Plane::init()
 void Plane::draw(QOpenGLShaderProgram *program)
 {
     incrementTime();
-    // init();
+    init();
 
     // Tell OpenGL which VBOs to use
     arrayBuf.bind();

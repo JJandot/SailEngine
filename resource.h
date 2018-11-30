@@ -6,6 +6,8 @@ class Resource
 {
 public:
     Resource();
+
+    Resource operator=(const Resource& r);
 };
 
 #endif // RESOURCE_H

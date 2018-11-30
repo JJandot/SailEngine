@@ -54,6 +54,8 @@
 #include "plane.h"
 #include "controller.h"
 #include "camera.h"
+#include "island.h"
+#include "pixel.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -64,10 +66,13 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLTexture>
 #include <QObject>
+#include <QList>
+
 
 class Plane;
 class Camera;
 class Controller;
+class Island;
 
 class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -93,7 +98,6 @@ protected:
 private:
     QBasicTimer timer;
     QOpenGLShaderProgram program;
-    Plane *plane;
 
     QOpenGLTexture *texture;
 
@@ -104,9 +108,11 @@ private:
     qreal angularSpeed;
     QQuaternion rotation;
 
-
+    // Game
+    Plane *plane;
     Camera camera;
     Controller controller;
+    Island islands[256]; void initIslands(QString path);
 
     int timeFps;
 };

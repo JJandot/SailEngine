@@ -29,7 +29,8 @@ HEADERS += \
     ship.h \
     resource.h \
     ia.h \
-    island.h
+    island.h \
+    pixel.h
 
 RESOURCES += \
     shaders.qrc \
