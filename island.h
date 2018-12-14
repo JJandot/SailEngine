@@ -7,6 +7,14 @@
 #include "player.h"
 #include "pixel.h"
 
+/*
+ * Les îles ont un label attribué en fonction de la islandMap
+ * et une liste des pixels qui lui appartiennent
+ * Chaque île a une liste de ressources
+ * On peut ajouter des ressources, les récolter
+ * Chaque île appartient à un joueur, sinon playerId = -1
+ */
+
 class Island
 {
 public:
@@ -14,15 +22,14 @@ public:
     Island(int labelId);
     Island(int labelId, QList<Resource> resources);
 
-    void harvest(Resource r);
+    void harvest(Resource r, int _value);
 
     void addResources(QList<Resource> res);
     void addPixels(QList<Pixel> px);
-    void addPixel(Pixel px);
-    void setController(Player p);
+    void setController(int _playerId);
     void setLabel(int id);
 
-    Player getController();
+    int getController();
     QList<Resource> getResources();
 
     int getNbPixels();
@@ -34,7 +41,7 @@ private:
 
     // gameplay
     QList<Resource> resources;
-    Player controlledBy;
+    int playerId;
 
 };
 

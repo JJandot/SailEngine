@@ -8,10 +8,5 @@
         <file>img/labelmap1.png</file>
         <file>img/map1.png</file>
         <file>img/water.png</file>
-        <file>img/Car.obj</file>
-        <file>img/Canoe.obj</file>
-        <file>img/Wood_Boat.obj</file>
-        <file>img/Wood_Boat.mtl</file>
-        <file>img/TextureBoat.png</file>
     </qresource>
 </RCC>
