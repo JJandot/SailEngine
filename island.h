@@ -26,6 +26,7 @@ public:
 
     void addResources(QList<Resource> res);
     void addPixels(QList<Pixel> px);
+    void addPixel(Pixel px);
     void setController(int _playerId);
     void setLabel(int id);
 

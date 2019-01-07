@@ -13,7 +13,7 @@ class Resource
 public:
     Resource(std::string _name, int _value, int _max);
 
-    Resource operator==(const Resource& r);
+    bool operator==(const Resource& r);
 
     int getNbResources();
     void addNbResources(int _value);

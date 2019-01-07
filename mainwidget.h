@@ -56,6 +56,8 @@
 #include "camera.h"
 #include "island.h"
 #include "pixel.h"
+#include "object.h"
+
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>

@@ -8,5 +8,7 @@
         <file>img/labelmap1.png</file>
         <file>img/map1.png</file>
         <file>img/water.png</file>
+				<file>img/img/tower.obj</file>
+				<file>img/tower.obj</file>
     </qresource>
 </RCC>

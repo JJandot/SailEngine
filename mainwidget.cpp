@@ -49,10 +49,10 @@
 ****************************************************************************/
 
 #include "mainwidget.h"
-
 #include <math.h>
 #include <iostream>
 #include <QColor>
+
 
 MainWidget::MainWidget(QWidget *parent, int time) :
     QOpenGLWidget(parent),
@@ -124,6 +124,7 @@ void MainWidget::initializeGL()
     controller.setCamera(&camera);
 
     plane = new Plane(":/img/map1.png", ":/img/water.png");
+    //plane = new Plane(":/img/img/tower.obj", ":/img/water.png");
     plane->init();
 
     initIslands(":/img/labelmap1.png");
@@ -132,6 +133,9 @@ void MainWidget::initializeGL()
             std::cout << islands[i].getNbPixels() << std::endl;
         }
     }
+
+
+    Object o(":/img/tower.obj");
     // Use QBasicTimer because its faster than QTimer
     timer.start(timeFps, this);
 }

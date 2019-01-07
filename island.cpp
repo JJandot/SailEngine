@@ -15,9 +15,15 @@ Island::Island(int labelId, QList<Resource> resources)
 
 void Island::addResources(QList<Resource> res)
 {
-    if(!resources.contains(res)) {
-        res.append(res);
-    }
+    for(Resource r : res)
+        if(!resources.contains(r))
+            res.append(res);
+}
+
+void Island::addPixels(QList<Pixel> px)
+{
+    for(Pixel p : px)
+        addPixel(p);
 }
 
 void Island::addPixel(Pixel px)
@@ -38,6 +44,6 @@ void Island::setLabel(int id) { label = id; }
 void Island::setController(int _playerId) { playerId = _playerId; }
 void Island::harvest(Resource r, int _value)
 {
-    r.addNbResources(-value);
+    r.addNbResources(-_value);
 }
 

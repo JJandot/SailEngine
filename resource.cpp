@@ -7,11 +7,12 @@ Resource::Resource(std::string _name, int _value, int _max)
     max = _max;
 }
 
-Resource::operator ==(const Resource& r) {
-    if(name == r.getName())
+bool Resource::operator==(const Resource& r) {
+    if(name == r.name)
         return true;
     return false;
 }
+
 
 int Resource::getNbResources()
 {
