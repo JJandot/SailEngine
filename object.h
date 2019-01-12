@@ -2,27 +2,19 @@
 #define OBJECT_H
 
 #include <iostream>
-#include <vector>
-#include <QVector3D>
-#include <QVector2D>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLBuffer>
+#include <QOpenGLWidget>
+#include <QLabel>
+#include <QPixmap>
 #include <QFile>
 
 class Object
 {
 public:
     Object(QString path);
-    bool loadObject(QString path, std::vector<QVector3D> &outVertices, std::vector<QVector2D> &outUvs, std::vector<QVector3D> &outNormals);
 
-    void drawObject(QOpenGLShaderProgram *program);
+    void drawObject(QOpenGLWidget *mainWidget);
 private:
-    QOpenGLBuffer arrayBuf;
-    QOpenGLBuffer indexBuf;
-
-    void initObject(QString path);
-
+    QPixmap img;
 };
 
 #endif // OBJECT_H

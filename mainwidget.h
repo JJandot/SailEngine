@@ -75,6 +75,7 @@ class Plane;
 class Camera;
 class Controller;
 class Island;
+class Object;
 
 class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -114,6 +115,7 @@ private:
     Plane *plane;
     Camera camera;
     Controller controller;
+    Object *shipTest;
     Island islands[256]; void initIslands(QString path);
 
     int timeFps;

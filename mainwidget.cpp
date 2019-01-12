@@ -124,8 +124,9 @@ void MainWidget::initializeGL()
     controller.setCamera(&camera);
 
     plane = new Plane(":/img/map1.png", ":/img/water.png");
-    //plane = new Plane(":/img/img/tower.obj", ":/img/water.png");
     plane->init();
+
+    shipTest = new Object(":/img/PNG/Retina/Ships/ship1.png");
 
     initIslands(":/img/labelmap1.png");
     for(int i = 0; i < 256; i++) {
@@ -135,7 +136,6 @@ void MainWidget::initializeGL()
     }
 
 
-    Object o(":/img/tower.obj");
     // Use QBasicTimer because its faster than QTimer
     timer.start(timeFps, this);
 }
@@ -212,6 +212,8 @@ void MainWidget::paintGL()
     // Draw plane geometry
     plane->draw(&program);
     plane->incrementTime();
+
+    shipTest->drawObject(this);
 }
 
 void MainWidget::initIslands(QString path)
