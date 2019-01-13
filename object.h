@@ -10,6 +10,7 @@
 class Object
 {
 public:
+    Object();
     Object(QString path);
 
     void drawObject(QOpenGLWidget *mainWidget);

@@ -126,7 +126,7 @@ void MainWidget::initializeGL()
     plane = new Plane(":/img/map1.png", ":/img/water.png");
     plane->init();
 
-    shipTest = new Object(":/img/PNG/Retina/Ships/ship1.png");
+    shipTest = new Boat(Team::BLACK);
 
     initIslands(":/img/labelmap1.png");
     for(int i = 0; i < 256; i++) {

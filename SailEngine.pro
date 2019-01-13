@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     ship.cpp \
     resource.cpp \
     ia.cpp \
-    island.cpp
+    island.cpp \
+    boat.cpp
 
 HEADERS += \
     mainwidget.h \
@@ -29,7 +30,9 @@ HEADERS += \
     ship.h \
     resource.h \
     ia.h \
-    island.h
+    island.h \
+    boat.h \
+    teams.h
 
 RESOURCES += \
     shaders.qrc \

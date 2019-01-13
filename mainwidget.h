@@ -57,7 +57,7 @@
 #include "island.h"
 #include "pixel.h"
 #include "object.h"
-
+#include "boat.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -69,13 +69,14 @@
 #include <QOpenGLTexture>
 #include <QObject>
 #include <QList>
+#include <gl/GLU.h>
 
 
 class Plane;
 class Camera;
 class Controller;
 class Island;
-class Object;
+class Boat;
 
 class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -115,10 +116,17 @@ private:
     Plane *plane;
     Camera camera;
     Controller controller;
-    Object *shipTest;
+    Boat *shipTest;
     Island islands[256]; void initIslands(QString path);
 
     int timeFps;
+
+    /**
+     * pour le raycast
+     */
+    using uint = unsigned int;
+    static const int selectBufferSize = 100;
+    std::vector<uint> selectBuffer = std::vector<uint>(selectBufferSize);
 };
 
 #endif // MAINWIDGET_H
