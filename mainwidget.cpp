@@ -86,7 +86,7 @@ MainWidget::~MainWidget()
 
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
-    controller.mousePressedEvent(e);
+    controller.mousePressedEvent(e, objects);
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
@@ -109,11 +109,12 @@ void MainWidget::initializeGL()
     initTextures();
 
     // Enable depth buffer
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH);
 
     // Enable back face culling
     glEnable(GL_CULL_FACE);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //glSelectBuffer(selectBufferSize, selectBuffer);
 
 //!
 //!
@@ -126,7 +127,6 @@ void MainWidget::initializeGL()
     plane = new Plane(":/img/map1.png", ":/img/water.png");
     plane->init();
 
-    shipTest = new Ship(Team::BLACK);
 
     initIslands(":/img/labelmap1.png");
     for(int i = 0; i < 256; i++) {
@@ -134,6 +134,8 @@ void MainWidget::initializeGL()
             std::cout << islands[i].getNbPixels() << std::endl;
         }
     }
+    initObjects();
+    drawObjects();
 
 
     // Use QBasicTimer because its faster than QTimer
@@ -176,6 +178,16 @@ void MainWidget::initTextures()
     texture->setWrapMode(QOpenGLTexture::Repeat);
 }
 
+void MainWidget::initObjects(){
+    Ship s(Team::BLACK, QVector2D(50, 50));
+    objects.push_back(s);
+}
+
+void MainWidget::drawObjects(){
+    for(int i = 0; i < objects.size(); ++i)
+        objects[i].drawObject(this);
+}
+
 void MainWidget::resizeGL(int w, int h)
 {
     // Calculate aspect ratio
@@ -213,7 +225,6 @@ void MainWidget::paintGL()
     plane->draw(&program);
     plane->incrementTime();
 
-    shipTest->drawObject(this);
 }
 
 void MainWidget::initIslands(QString path)
@@ -241,4 +252,8 @@ void MainWidget::initIslands(QString path)
             }
         }
     }
+}
+
+std::vector<Object> MainWidget::getObjects(){
+    return objects;
 }

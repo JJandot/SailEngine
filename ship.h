@@ -15,7 +15,7 @@
 class Ship : public Object
 {
 public:
-    Ship(Team t);
+    Ship(Team t, QVector2D pos);
 
 private:
     int controlledBy;

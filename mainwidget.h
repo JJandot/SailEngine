@@ -87,6 +87,7 @@ public:
     explicit MainWidget(QWidget *parent = 0, int time = 1);
     MainWidget(int time);
     ~MainWidget();
+    std::vector<Object> getObjects();
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
@@ -99,6 +100,9 @@ protected:
 
     void initShaders();
     void initTextures();
+    void initObjects();
+    void drawObjects();
+
 
 private:
     QBasicTimer timer;
@@ -117,17 +121,12 @@ private:
     Plane *plane;
     Camera camera;
     Controller controller;
-    Ship *shipTest;
     Island islands[256]; void initIslands(QString path);
 
     int timeFps;
 
-    /**
-     * pour le raycast
-     */
-    using uint = unsigned int;
-    static const int selectBufferSize = 100;
-    std::vector<uint> selectBuffer = std::vector<uint>(selectBufferSize);
+    std::vector<Object> objects;
+
 };
 
 #endif // MAINWIDGET_H

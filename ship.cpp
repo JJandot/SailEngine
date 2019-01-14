@@ -1,6 +1,6 @@
 #include "ship.h"
 
-Ship::Ship(Team t)
+Ship::Ship(Team t, QVector2D pos)
 {
     this->team = t;
     switch (team) {
@@ -29,5 +29,6 @@ Ship::Ship(Team t)
 
     teamPath += "ship.png";
     setSprite(teamPath);
+    this->pos = pos;
 
 }

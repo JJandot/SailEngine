@@ -34,10 +34,16 @@ void Controller::keyPressedEvent(QKeyEvent *event)
     }
 }
 
-void Controller::mousePressedEvent(QMouseEvent *event)
+void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Object> objects)
 {
     mousePressedPosition = QVector2D(event->x(), event->y());
     debugMousePos();
+
+    for(Object o : objects){
+        if(o.contains(mousePressedPosition)){
+            std::cout << "click inside" << std::endl;
+        }
+    }
 }
 
 void Controller::debugMousePos()

@@ -1,7 +1,9 @@
-QT       += core gui widgets
+QT       += core gui widgets opengl
 
 TARGET = SailEngine
 TEMPLATE = app
+
+LIBS += -lopengl32
 
 SOURCES += main.cpp \
     mainwidget.cpp \

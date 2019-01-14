@@ -2,12 +2,16 @@
 #define CONTROLLER_H
 
 #include "camera.h"
+#include "object.h"
 
 #include <iostream>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QOpenGLWidget>
+
 
 class Camera;
+class Object;
 
 class Controller
 {
@@ -15,7 +19,7 @@ public:
     Controller();
 
     void keyPressedEvent(QKeyEvent *event);
-    void mousePressedEvent(QMouseEvent *event);
+    void mousePressedEvent(QMouseEvent *event, std::vector<Object> objects);
     void setCamera(Camera *camera);
 
 private:
