@@ -14,8 +14,9 @@ public:
     Object(QString path);
 
     void drawObject(QOpenGLWidget *mainWidget);
-private:
+protected:
     QPixmap img;
+    void setSprite(QString path);
 };
 
 #endif // OBJECT_H

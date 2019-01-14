@@ -8,6 +8,11 @@
         <file>img/labelmap1.png</file>
         <file>img/map1.png</file>
         <file>img/water.png</file>
-				<file>img/PNG/Retina/Ships/ship1.png</file>
-    </qresource>
+				<file>img/teams/black/ship.png</file>
+				<file>img/teams/blue/ship.png</file>
+				<file>img/teams/green/ship.png</file>
+				<file>img/teams/red/ship.png</file>
+				<file>img/teams/white/ship.png</file>
+				<file>img/teams/yellow/ship.png</file>
+				</qresource>
 </RCC>

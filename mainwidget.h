@@ -57,7 +57,8 @@
 #include "island.h"
 #include "pixel.h"
 #include "object.h"
-#include "boat.h"
+#include "ship.h"
+#include "teams.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -76,7 +77,7 @@ class Plane;
 class Camera;
 class Controller;
 class Island;
-class Boat;
+class Ship;
 
 class MainWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -116,7 +117,7 @@ private:
     Plane *plane;
     Camera camera;
     Controller controller;
-    Boat *shipTest;
+    Ship *shipTest;
     Island islands[256]; void initIslands(QString path);
 
     int timeFps;

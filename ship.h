@@ -3,6 +3,8 @@
 
 #include <QVector2D>
 #include <string>
+#include "object.h"
+#include "teams.h"
 
 /*
  * Un bateau appartient à un joueur
@@ -10,10 +12,10 @@
  * 2 types : transport (ressource, quantité), combat (dégats, range)
  */
 
-class Ship
+class Ship : public Object
 {
 public:
-    Ship();
+    Ship(Team t);
 
 private:
     int controlledBy;
@@ -23,6 +25,9 @@ private:
 
     std::string resourceName;
     int resourceCost;
+
+    Team team;
+    QString teamPath;
 };
 
 #endif // SHIP_H
