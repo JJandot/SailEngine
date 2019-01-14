@@ -42,6 +42,8 @@ void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Object> objec
     for(Object o : objects){
         if(o.contains(mousePressedPosition)){
             std::cout << "click inside" << std::endl;
+            //do something
+            return; //pour l'opti
         }
     }
 }
