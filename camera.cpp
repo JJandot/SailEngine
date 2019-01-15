@@ -6,7 +6,7 @@ Camera::Camera()
 }
 
 void Camera::init(){
-    position = QVector3D(0.0,0.0,-5.0);
+    position = QVector3D(-1,-1,-2.6);
 }
 
 void Camera::left()

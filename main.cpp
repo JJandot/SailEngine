@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 #ifndef QT_NO_OPENGL
 
     MainWidget widget;
-    widget.setMinimumSize(1600, 900);
+    widget.setMinimumSize(900, 900);
     widget.show();
 
 #else

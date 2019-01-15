@@ -8,11 +8,13 @@
         <file>img/labelmap1.png</file>
         <file>img/map1.png</file>
         <file>img/water.png</file>
-				<file>img/teams/black/ship.png</file>
-				<file>img/teams/blue/ship.png</file>
-				<file>img/teams/green/ship.png</file>
-				<file>img/teams/red/ship.png</file>
-				<file>img/teams/white/ship.png</file>
-				<file>img/teams/yellow/ship.png</file>
-				</qresource>
+        <file>img/teams/black/ship.png</file>
+        <file>img/teams/blue/ship.png</file>
+        <file>img/teams/green/ship.png</file>
+        <file>img/teams/red/ship.png</file>
+        <file>img/teams/white/ship.png</file>
+        <file>img/teams/yellow/ship.png</file>
+        <file>img/map2.jpg</file>
+        <file>img/labelmap2.jpg</file>
+    </qresource>
 </RCC>

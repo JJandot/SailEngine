@@ -31,6 +31,11 @@ void Island::addPixel(Pixel px)
     islandPixel.append(px);
 }
 
+void Island::removeAllPixels()
+{
+    islandPixel.clear();
+}
+
 int Island::getController() { return playerId; }
 
 QList<Resource> Island::getResources() { return resources; }

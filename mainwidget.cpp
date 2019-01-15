@@ -111,7 +111,7 @@ void MainWidget::initializeGL()
     initTextures();
 
     // Enable depth buffer
-    glEnable(GL_DEPTH);
+    glEnable(GL_DEPTH_TEST);
 
     // Enable back face culling
     glEnable(GL_CULL_FACE);
@@ -126,16 +126,11 @@ void MainWidget::initializeGL()
     camera.init();
     controller.setCamera(&camera);
 
-    plane = new Plane(":/img/map1.png", ":/img/water.png");
+    plane = new Plane(":/img/map2.jpg", ":/img/water.png");
     plane->init();
 
 
-    initIslands(":/img/labelmap1.png");
-    for(int i = 0; i < 256; i++) {
-        if(islands[i].getNbPixels() != 0) {
-            std::cout << islands[i].getNbPixels() << std::endl;
-        }
-    }
+    initIslands(":/img/labelmap2.jpg");
     initObjects();
 
 
@@ -166,7 +161,7 @@ void MainWidget::initTextures()
 {
     // Load cube.png image
     //texture = new QOpenGLTexture(QImage(":/cube.png").mirrored());
-    texture = new QOpenGLTexture(QImage(":/img/map1.png").mirrored());
+    texture = new QOpenGLTexture(QImage(":/img/map2.jpg").mirrored());
 
     // Set nearest filtering mode for texture minification
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
@@ -249,7 +244,6 @@ void MainWidget::initIslands(QString path)
                         if(labels[value] == 0) {
                             //nouvelle ile
                             islands[value].setLabel(value);
-                            std::cout << "nouvelle ile " << value << std::endl;
                         }
                         labels[value]++;
                         Pixel p; p.px = i; p.py = j;
@@ -258,7 +252,17 @@ void MainWidget::initIslands(QString path)
                 }
             }
         }
+        // islands clean up
+        for(int i = 0; i < 256; i++) {
+            if(islands[i].getNbPixels() <= 150) {
+                islands[i].removeAllPixels();
+            } else {
+                std::cout << "nouvelle ile " << i << "(nbPixels : " << islands[i].getNbPixels() << std::endl;
+            }
+        }
     }
+
+
 }
 
 std::vector<Object> MainWidget::getObjects(){
