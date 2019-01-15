@@ -1,6 +1,8 @@
 #include "ship.h"
 
-Ship::Ship(Team t, QVector2D pos)
+Ship::Ship(){}
+
+Ship::Ship(Team t, QVector2D pos, QOpenGLWidget *mainWidget) : Object (mainWidget)
 {
     this->team = t;
     switch (team) {

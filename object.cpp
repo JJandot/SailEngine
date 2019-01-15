@@ -1,7 +1,10 @@
 #include "object.h"
 
-Object::Object(){
+Object::Object(){}
+
+Object::Object(QOpenGLWidget *mainWidget){
     test = "";
+    label = new QLabel(mainWidget);
 }
 
 Object::Object(QString path, QVector2D pos)
@@ -12,9 +15,8 @@ Object::Object(QString path, QVector2D pos)
     test = "";
 }
 
-void Object::drawObject(QOpenGLWidget *mainWidget)
+void Object::drawObject()
 {
-    label = new QLabel(mainWidget);
     label->setGeometry(pos.x(), pos.y(), width, height);
     label->setPixmap(img);
     label->setProperty("selected", QVariant(false));
@@ -27,8 +29,9 @@ void Object::drawObject(QOpenGLWidget *mainWidget)
     label->updateGeometry();
 }
 
-void Object::setPos(QVector2D pos){
-    this->pos = pos;
+void Object::setPos(QVector2D position){
+    this->pos.setX(position.x());
+    this->pos.setY(position.y());
 }
 
 void Object::setSprite(QString path){

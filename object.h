@@ -12,11 +12,11 @@
 class Object
 {
 public:
-
     Object();
+    Object(QOpenGLWidget *mainWidget);
     Object(QString path, QVector2D pos);
 
-    void drawObject(QOpenGLWidget *mainWidget);
+    void drawObject();
     bool contains(QVector2D position);
     void printPos();
     QVector2D getPos();
@@ -26,6 +26,7 @@ public:
     bool getSelected();
     void testMove();
     void setPos(QVector2D pos);
+    std::string test;
 
 protected:
     QPixmap img;
@@ -35,7 +36,6 @@ protected:
     int height;
     void setSprite(QString path);
     bool isSelected = false;
-    std::string test;
 
 
 };
