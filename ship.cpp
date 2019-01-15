@@ -28,9 +28,30 @@ Ship::Ship(Team t, QVector2D pos, QOpenGLWidget *mainWidget) : Object (mainWidge
             teamPath = "";
             break;
     }
-
+    destination = QVector2D(-1, -1);
     teamPath += "ship.png";
     setSprite(teamPath);
     this->pos = pos;
 
+}
+
+void Ship::setDestination(QVector2D dest){
+    destination.setX(dest.x());
+    destination.setY(dest.y());
+}
+
+void Ship::drawObject() {
+    if(destination.x() != -1){
+        if(pos.x() != destination.x())
+            pos.setX(pos.x() + 3);
+        if(pos.y() != destination.y())
+            pos.setY(pos.y() + 3);
+    }
+    label->setGeometry(pos.x(), pos.y(), width, height);
+    label->setPixmap(img);
+
+}
+
+QVector2D Ship::getDestination(){
+    return destination;
 }

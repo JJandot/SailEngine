@@ -87,7 +87,6 @@ MainWidget::~MainWidget()
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
     controller.mousePressedEvent(e, ships, selectedShip);
-    selectedShip.setPos(QVector2D(500, 500));
     ships.push_back(selectedShip);
 }
 
@@ -181,8 +180,6 @@ void MainWidget::initObjects(){
 
 void MainWidget::drawObjects(){
     for(int i = 0; i < ships.size(); ++i){
-        if(ships[i].getSelected())
-            ships[i].setPos(QVector2D(500, 500));
         ships[i].drawObject();
     }
 }

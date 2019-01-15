@@ -17,6 +17,9 @@ class Ship : public Object
 public:
     Ship();
     Ship(Team t, QVector2D pos, QOpenGLWidget *mainWidget);
+    void setDestination(QVector2D dest);
+    QVector2D getDestination();
+    void drawObject() override;
 
 private:
     int controlledBy;

@@ -16,7 +16,7 @@ public:
     Object(QOpenGLWidget *mainWidget);
     Object(QString path, QVector2D pos);
 
-    void drawObject();
+    virtual void drawObject();
     bool contains(QVector2D position);
     void printPos();
     QVector2D getPos();

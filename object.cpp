@@ -19,14 +19,14 @@ void Object::drawObject()
 {
     label->setGeometry(pos.x(), pos.y(), width, height);
     label->setPixmap(img);
-    label->setProperty("selected", QVariant(false));
-    label->setStyleSheet("* [selected='true'] { background-color: yellow }");
-    if(isSelected){
+    //label->setProperty("selected", QVariant(false));
+    //label->setStyleSheet("* [selected='true'] { background-color: yellow }");
+    /*if(isSelected){
         label->update();
         label->updateGeometry();
     }
     label->update();
-    label->updateGeometry();
+    label->updateGeometry();*/
 }
 
 void Object::setPos(QVector2D position){
@@ -67,15 +67,9 @@ int Object::getHeight(){
 void Object::setSelected(bool isSelected){
     this->isSelected = isSelected;
     std::cout << "selected" << std::endl;
-    label->setProperty("selected", QVariant(true));
+    //label->setProperty("selected", QVariant(true));
 }
 
 bool Object::getSelected(){
     return  isSelected;
-}
-
-void Object::testMove(){
-    pos.setX(500);
-    pos.setY(500);
-    //label->setGeometry(500, 500, width, height);
 }

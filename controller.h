@@ -28,6 +28,7 @@ private:
     QVector2D mousePressedPosition;
     void debugMousePos();
     Camera *camera;
+    bool isSelected = false;
 };
 
 #endif // CONTROLLER_H
