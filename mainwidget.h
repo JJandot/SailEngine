@@ -126,6 +126,7 @@ private:
     int timeFps;
 
     std::vector<Object> objects;
+    Object selectedObject;
 
 };
 

@@ -86,7 +86,9 @@ MainWidget::~MainWidget()
 
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
-    controller.mousePressedEvent(e, objects);
+    controller.mousePressedEvent(e, objects, selectedObject);
+    std::cout << selectedObject.getSelected() << std::endl;
+    update();
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
@@ -135,7 +137,6 @@ void MainWidget::initializeGL()
         }
     }
     initObjects();
-    drawObjects();
 
 
     // Use QBasicTimer because its faster than QTimer
@@ -184,8 +185,11 @@ void MainWidget::initObjects(){
 }
 
 void MainWidget::drawObjects(){
-    for(int i = 0; i < objects.size(); ++i)
+    for(int i = 0; i < objects.size(); ++i){
+        if(objects[i].getSelected())
+            objects[i].setPos(QVector2D(500, 500));
         objects[i].drawObject(this);
+    }
 }
 
 void MainWidget::resizeGL(int w, int h)
@@ -224,6 +228,9 @@ void MainWidget::paintGL()
     // Draw plane geometry
     plane->draw(&program);
     plane->incrementTime();
+
+
+    drawObjects();
 
 }
 

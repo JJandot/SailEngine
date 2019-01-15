@@ -19,7 +19,7 @@ public:
     Controller();
 
     void keyPressedEvent(QKeyEvent *event);
-    void mousePressedEvent(QMouseEvent *event, std::vector<Object> objects);
+    void mousePressedEvent(QMouseEvent *event, std::vector<Object> objects, Object &selectedObject);
     void setCamera(Camera *camera);
 
 private:
