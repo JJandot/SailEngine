@@ -15,7 +15,8 @@
 class Ship : public Object
 {
 public:
-    Ship(Team t, QVector2D pos);
+    Ship();
+    Ship(Team t, QVector2D pos, QOpenGLWidget *mainWidget);
 
 private:
     int controlledBy;

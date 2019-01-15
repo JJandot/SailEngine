@@ -86,9 +86,9 @@ MainWidget::~MainWidget()
 
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
-    controller.mousePressedEvent(e, objects, selectedObject);
-    std::cout << selectedObject.getSelected() << std::endl;
-    update();
+    controller.mousePressedEvent(e, ships, selectedShip);
+    selectedShip.setPos(QVector2D(500, 500));
+    ships.push_back(selectedShip);
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
@@ -175,15 +175,15 @@ void MainWidget::initTextures()
 }
 
 void MainWidget::initObjects(){
-    Ship s(Team::BLACK, QVector2D(50, 50));
-    objects.push_back(s);
+    Ship s(Team::BLACK, QVector2D(50, 50), this);
+    ships.push_back(s);
 }
 
 void MainWidget::drawObjects(){
-    for(int i = 0; i < objects.size(); ++i){
-        if(objects[i].getSelected())
-            objects[i].setPos(QVector2D(500, 500));
-        objects[i].drawObject(this);
+    for(int i = 0; i < ships.size(); ++i){
+        if(ships[i].getSelected())
+            ships[i].setPos(QVector2D(500, 500));
+        ships[i].drawObject();
     }
 }
 
@@ -265,6 +265,6 @@ void MainWidget::initIslands(QString path)
 
 }
 
-std::vector<Object> MainWidget::getObjects(){
-    return objects;
+std::vector<Ship> MainWidget::getShips(){
+    return ships;
 }

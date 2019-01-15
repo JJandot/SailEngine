@@ -87,7 +87,7 @@ public:
     explicit MainWidget(QWidget *parent = 0, int time = 1);
     MainWidget(int time);
     ~MainWidget();
-    std::vector<Object> getObjects();
+    std::vector<Ship> getShips();
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
@@ -125,8 +125,8 @@ private:
 
     int timeFps;
 
-    std::vector<Object> objects;
-    Object selectedObject;
+    std::vector<Ship> ships;
+    Ship selectedShip;
 
 };
 
