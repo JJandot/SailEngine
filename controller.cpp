@@ -44,7 +44,9 @@ void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Ship> ships, 
             std::cout << "click inside" << std::endl;
             selectedShip = o;
             selectedShip.setSelected(true);
+
             selectedShip.test = "ee";
+
             return; //pour l'opti
         }
     }
