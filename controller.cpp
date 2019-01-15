@@ -34,16 +34,17 @@ void Controller::keyPressedEvent(QKeyEvent *event)
     }
 }
 
-void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Object> objects, Object &selectedObject)
+void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Ship> ships, Ship &selectedShip)
 {
     mousePressedPosition = QVector2D(event->x(), event->y());
     debugMousePos();
 
-    for(Object o : objects){
+    for(Ship o : ships){
         if(o.contains(mousePressedPosition)){
             std::cout << "click inside" << std::endl;
-            selectedObject = o;
-            selectedObject.setSelected(true);
+            selectedShip = o;
+            selectedShip.setSelected(true);
+            selectedShip.test = "ee";
             return; //pour l'opti
         }
     }
