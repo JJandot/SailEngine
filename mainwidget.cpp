@@ -92,6 +92,10 @@ void MainWidget::mousePressEvent(QMouseEvent *e)
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
     controller.keyPressedEvent(event);
+
+    if(event->key() == Qt::Key_B) {
+        addShip(Team::BLACK);
+    }
 }
 
 void MainWidget::timerEvent(QTimerEvent *)
@@ -123,6 +127,7 @@ void MainWidget::initializeGL()
 //!
     camera.init();
     controller.setCamera(&camera);
+    controller.setMainWidget(this);
 
     plane = new Plane(":/img/map2.jpg", ":/img/water.png");
     plane->init();
@@ -176,7 +181,12 @@ void MainWidget::initTextures()
 
 void MainWidget::initObjects(){
     Ship s(Team::BLACK, QVector2D(50, 50), this);
-    Ship s2(Team::BLUE, QVector2D(150, 250), this);
+    s.setAttackPower(10);
+    s.setCapacityMax(100);
+
+    Ship s2(Team::BLUE, QVector2D(550, 550), this);
+    s2.setAttackPower(10);
+    s2.setCapacityMax(100);
 
     ships.push_back(s);
     ships.push_back(s2);
@@ -308,7 +318,7 @@ void MainWidget::drawIslands(){
 void MainWidget::interactShips(){
     for(Ship ship : ships){
         if(ship.docked()){
-            std::cout << ship.getTeam() << std::endl;
+            //std::cout << ship.getTeam() << std::endl;
             int numIsland = ship.getOnIsland();
             if(islands[numIsland].getController() != ship.getTeam()){
                 if(islands[numIsland].getAttackPower() <= ship.getAttackPower()){
@@ -316,12 +326,38 @@ void MainWidget::interactShips(){
                 }
             }
             else{
-                //std::cout << "harvest" << std::endl;
+                islands[numIsland].harvest(1);
+                ship.addStorage(1);
+
+                //std::cout << "harvest (storage:" << ship.getStorage() << "/" << ship.getCapacityMax() << std::endl;
             }
         }
     }
 }
 
+void MainWidget::addShip(Team t) {
+
+    int x = 0;
+    int y = 0;
+    bool islandExists = false;
+    for(Island i : islands) {
+        if(i.getController() == t) {
+            x = i.getPosition().px;
+            y = i.getPosition().py;
+            islandExists = true;
+        }
+    }
+
+    if(islandExists) {
+        std::cout << "create" << t << ships.size() << " " << x << " " << y << std::endl;
+        Ship s(t, QVector2D(x,y), this);
+        s.setAttackPower(10);
+        s.setCapacityMax(100);
+
+        ships.push_back(s);
+        drawObjects();
+    }
+}
 
 std::vector<Ship> MainWidget::getShips(){
     return ships;

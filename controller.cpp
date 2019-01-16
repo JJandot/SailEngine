@@ -2,7 +2,6 @@
 
 Controller::Controller()
 {
-
 }
 
 void Controller::setCamera(Camera *camera)
@@ -19,6 +18,10 @@ void Controller::setImg(QString path)
 {
     img = QImage(path);
     this->path = path;
+}
+
+void Controller::setMainWidget(QOpenGLWidget *mainWidget) {
+    mw = mainWidget;
 }
 
 void Controller::keyPressedEvent(QKeyEvent *event)
@@ -42,6 +45,11 @@ void Controller::keyPressedEvent(QKeyEvent *event)
     }
     if(event->key() == Qt::Key_F) {
         camera->backward();
+    }
+
+    if(event->key() == Qt::Key_B) {
+        //spawn bateau sur une île controlée
+        //TODO: actuellement gérer dans mainWidget -> gérer dans controller
     }
 }
 

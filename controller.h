@@ -23,6 +23,7 @@ class Controller
 public:
     Controller();
 
+    void setMainWidget(QOpenGLWidget *mainWidget);
     void keyPressedEvent(QKeyEvent *event);
     void mousePressedEvent(QMouseEvent *event, std::vector<Ship> &ships, int &indice);
     void setCamera(Camera *camera);
@@ -37,6 +38,8 @@ private:
     Island* islands;
     QImage img;
     QString path;
+
+    QOpenGLWidget *mw;
 };
 
 #endif // CONTROLLER_H

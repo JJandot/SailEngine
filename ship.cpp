@@ -87,6 +87,21 @@ int Ship::getStorage() const
     return storage;
 }
 
+void Ship::addStorage(int value) {
+    storage += value;
+    if(storage > getCapacityMax())
+        storage = capacityMax;
+}
+
+
+void Ship::setAttackPower(int value) {
+    attackPower = value;
+}
+void Ship::setCapacityMax(int value) {
+    capacityMax = value;
+}
+
+
 int Ship::getOnIsland() const
 {
     return onIsland;

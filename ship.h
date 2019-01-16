@@ -26,6 +26,10 @@ public:
     int getCapacityMax() const;
     int getStorage() const;
 
+    void setAttackPower(int value);
+    void setCapacityMax(int value);
+    void addStorage(int value);
+
     int getOnIsland() const;
 
     void setOnIsland(int value);

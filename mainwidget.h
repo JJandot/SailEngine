@@ -90,6 +90,7 @@ public:
     std::vector<Ship> getShips();
     Plane getPlane();
     Island *getIsland();
+    void addShip(Team t);
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;

@@ -26,7 +26,7 @@ public:
     Island(int labelId);
     Island(int labelId, Resource *res);
 
-    void harvest(Resource r, int _value);
+    void harvest(int _value);
 
     void addResource(int value);
     void addPixels(QList<Pixel> px);
@@ -44,6 +44,7 @@ public:
     void setPath(QString path);
     void drawFlag();
     void drawResource();
+    Pixel getPosition();
 
 
     int getAttackPower() const;

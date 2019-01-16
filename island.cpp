@@ -94,9 +94,9 @@ void Island::setController(Team playerTeam) {
 
 
 }
-void Island::harvest(Resource r, int _value)
+void Island::harvest(int _value)
 {
-    r.addNbResources(-_value);
+    resource->addNbResources(-_value);
 }
 
 void Island::setPath(QString path){
@@ -115,6 +115,10 @@ void Island::drawFlag()
 int Island::getAttackPower() const
 {
     return attackPower;
+}
+
+Pixel Island::getPosition() {
+    return islandPixel[0];
 }
 
 void Island::drawResource()

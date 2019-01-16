@@ -11,6 +11,9 @@ public:
     Player(int _id);
     int getId();
 
+    int nbWood;
+    int nbFood;
+
 private:
     int id;
 };
