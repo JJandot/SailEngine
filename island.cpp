@@ -55,6 +55,7 @@ int Island::getNbPixels()
 void Island::setQLabel(QOpenGLWidget *mainWidget)
 {
     qlabel = new QLabel(mainWidget);
+    qlabelR = new QLabel(mainWidget);
 }
 
 void Island::setLabel(int id) { label = id; }
@@ -106,3 +107,10 @@ void Island::drawFlag()
     qlabel->setPixmap(img);
 }
 
+void Island::drawResource()
+{
+    float x = ((float)islandPixel[0].py-100) / (float)1280 * (float)900;
+    float y = ((float)islandPixel[0].px) / (float)1280 * (float)900;
+    qlabelR->setGeometry(x, y, img.width(), img.height());
+    qlabelR->setPixmap(resource->getPixmap());
+}

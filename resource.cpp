@@ -53,3 +53,11 @@ void Resource::modifyMaxResources(int _max)
 {
     max = _max;
 }
+
+
+void Resource::setPixmap(QString path) {
+    this->img = QPixmap(path);
+
+}
+
+QPixmap Resource::getPixmap() { return img; }

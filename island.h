@@ -43,12 +43,14 @@ public:
     void setQLabel(QOpenGLWidget *mainWidget);
     void setPath(QString path);
     void drawFlag();
+    void drawResource();
 
 private:
     // engine
     int label;
     QList<Pixel> islandPixel;
     QLabel *qlabel;
+    QLabel *qlabelR;
     QPixmap img;
     // gameplay
     Resource *resource;

@@ -17,7 +17,21 @@ SOURCES += main.cpp \
     ship.cpp \
     resource.cpp \
     ia.cpp \
-    island.cpp
+    island.cpp \
+    base.cpp \
+    calendar.cpp \
+    camera.cpp \
+    controller.cpp \
+    ia.cpp \
+    island.cpp \
+    light.cpp \
+    main.cpp \
+    mainwidget.cpp \
+    object.cpp \
+    plane.cpp \
+    player.cpp \
+    resource.cpp \
+    ship.cpp
 
 HEADERS += \
     mainwidget.h \
@@ -33,7 +47,22 @@ HEADERS += \
     ia.h \
     island.h \
     teams.h \
-    pixel.h
+    pixel.h \
+    base.h \
+    calendar.h \
+    camera.h \
+    controller.h \
+    ia.h \
+    island.h \
+    light.h \
+    mainwidget.h \
+    object.h \
+    pixel.h \
+    plane.h \
+    player.h \
+    resource.h \
+    ship.h \
+    teams.h
 
 RESOURCES += \
     shaders.qrc \
@@ -42,5 +71,3 @@ RESOURCES += \
 # install
 target.path = $$[QT_INSTALL_EXAMPLES]/opengl/cube
 INSTALLS += target
-
-DISTFILES +=

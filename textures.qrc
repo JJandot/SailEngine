@@ -14,7 +14,7 @@
         <file>img/teams/red/ship.png</file>
         <file>img/teams/white/ship.png</file>
         <file>img/teams/yellow/ship.png</file>
-				<file>img/teams/black/flag.png</file>
+        <file>img/teams/black/flag.png</file>
         <file>img/teams/blue/flag.png</file>
         <file>img/teams/green/flag.png</file>
         <file>img/teams/red/flag.png</file>
@@ -22,5 +22,7 @@
         <file>img/teams/yellow/flag.png</file>
         <file>img/map2.jpg</file>
         <file>img/labelmap2.jpg</file>
+        <file>img/resources/grain.png</file>
+        <file>img/resources/wood.png</file>
     </qresource>
 </RCC>

@@ -269,8 +269,10 @@ void MainWidget::initResources() {
         if(islands[i].getNbPixels() >= 150) {
             if(alternate) {
                 resources[i].setName("wood");
+                resources[i].setPixmap(":/img/resources/wood.png");
             } else {
                 resources[i].setName("food");
+                resources[i].setPixmap(":/img/resources/grain.png");
             }
             resources[i].modifyMaxResources(100);
             resources[i].addNbResources(50);
@@ -285,9 +287,13 @@ void MainWidget::initResources() {
 
 void MainWidget::drawIslands(){
     for(int i = 0; i < 256; ++i){
-        Team t = islands[i].getController();
-        if(t != 6){
-            islands[i].drawFlag();
+        if(islands[i].getNbPixels() > 1) {
+
+            Team t = islands[i].getController();
+            if(t != 6){
+                islands[i].drawFlag();
+            }
+            islands[i].drawResource();
         }
     }
 }

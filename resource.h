@@ -2,6 +2,7 @@
 #define RESOURCE_H
 
 #include <string>
+#include <QOpenGLWidget>
 
 /*
  * Une ressource a un nom, une valeur initiale et une valeur maximale
@@ -25,10 +26,14 @@ public:
     std::string getName();
     void setName(std::string _name);
 
+    void setPixmap(QString path);
+    QPixmap getPixmap();
+
 private:
     int value;
     int max;
     std::string name;
+    QPixmap img;
 };
 
 #endif // RESOURCE_H
