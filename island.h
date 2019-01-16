@@ -45,6 +45,9 @@ public:
     void drawFlag();
     void drawResource();
 
+
+    int getAttackPower() const;
+
 private:
     // engine
     int label;
@@ -56,6 +59,7 @@ private:
     Resource *resource;
     //int playerId;
     Team team;
+    int attackPower;
 
 };
 

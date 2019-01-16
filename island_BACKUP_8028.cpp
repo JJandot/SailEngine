@@ -59,6 +59,10 @@ void Island::setQLabel(QOpenGLWidget *mainWidget)
 {
     qlabel = new QLabel(mainWidget);
     qlabelR = new QLabel(mainWidget);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
 
 void Island::setLabel(int id) { label = id; }
@@ -111,12 +115,14 @@ void Island::drawFlag()
     qlabel->setPixmap(img);
 }
 
-
+<<<<<<< Updated upstream
+=======
 int Island::getAttackPower() const
 {
     return attackPower;
 }
 
+>>>>>>> Stashed changes
 void Island::drawResource()
 {
     float x = ((float)islandPixel[0].py-100) / (float)1280 * (float)900;

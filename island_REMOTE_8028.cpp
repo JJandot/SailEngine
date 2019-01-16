@@ -59,6 +59,7 @@ void Island::setQLabel(QOpenGLWidget *mainWidget)
 {
     qlabel = new QLabel(mainWidget);
     qlabelR = new QLabel(mainWidget);
+
 }
 
 void Island::setLabel(int id) { label = id; }
@@ -110,7 +111,6 @@ void Island::drawFlag()
     qlabel->setGeometry(x, y, img.width(), img.height());
     qlabel->setPixmap(img);
 }
-
 
 int Island::getAttackPower() const
 {

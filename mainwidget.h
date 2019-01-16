@@ -106,6 +106,7 @@ protected:
     void drawObjects();
     void drawIslands();
     void initResources();
+    void interactShips();
 
 
 private:

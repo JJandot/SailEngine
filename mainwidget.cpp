@@ -176,7 +176,10 @@ void MainWidget::initTextures()
 
 void MainWidget::initObjects(){
     Ship s(Team::BLACK, QVector2D(50, 50), this);
+    Ship s2(Team::BLUE, QVector2D(150, 250), this);
+
     ships.push_back(s);
+    ships.push_back(s2);
 }
 
 void MainWidget::drawObjects(){
@@ -226,7 +229,10 @@ void MainWidget::paintGL()
     drawObjects();
     drawIslands();
 
+    interactShips();
+
 }
+
 
 void MainWidget::initIslands(QString path)
 {
@@ -295,9 +301,26 @@ void MainWidget::drawIslands(){
             }
             islands[i].drawResource();
         }
+
     }
 }
 
+void MainWidget::interactShips(){
+    for(Ship ship : ships){
+        if(ship.docked()){
+            std::cout << ship.getTeam() << std::endl;
+            int numIsland = ship.getOnIsland();
+            if(islands[numIsland].getController() != ship.getTeam()){
+                if(islands[numIsland].getAttackPower() <= ship.getAttackPower()){
+                    islands[numIsland].setController(ship.getTeam());
+                }
+            }
+            else{
+                //std::cout << "harvest" << std::endl;
+            }
+        }
+    }
+}
 
 
 std::vector<Ship> MainWidget::getShips(){

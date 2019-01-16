@@ -71,9 +71,10 @@ void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Ship> &ships,
         if(value != 0){
             if(islands[value].getController() == 6){
                 std::cout << "free island" << std::endl;
-                islands[value].setController(ships[indice].getTeam());
             }
+            ships[indice].setOnIsland(value);
         }
+        ships[indice].setOnIsland(value);
         ships[indice].setDestination(dest);
         isSelected = false;
     }

@@ -3,14 +3,12 @@
 Island::Island() {
     label = 0;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 Island::Island(int labelId)
 {
     label = labelId;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 Island::Island(int labelId, Resource *res)
@@ -18,7 +16,6 @@ Island::Island(int labelId, Resource *res)
     label = labelId;
     resource = res;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 void Island::addResource(int value)
@@ -90,7 +87,6 @@ void Island::setController(Team playerTeam) {
     path += "flag.png";
 
     setPath(path);
-    std::cout << path.toStdString() << std::endl;
 
 
 }
@@ -109,12 +105,6 @@ void Island::drawFlag()
     float y = (float)islandPixel[0].px / (float)1280 * (float)900;
     qlabel->setGeometry(x, y, img.width(), img.height());
     qlabel->setPixmap(img);
-}
-
-
-int Island::getAttackPower() const
-{
-    return attackPower;
 }
 
 void Island::drawResource()

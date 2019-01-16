@@ -3,14 +3,12 @@
 Island::Island() {
     label = 0;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 Island::Island(int labelId)
 {
     label = labelId;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 Island::Island(int labelId, Resource *res)
@@ -18,7 +16,6 @@ Island::Island(int labelId, Resource *res)
     label = labelId;
     resource = res;
     team = Team::NONE;
-    attackPower = 5;
 }
 
 void Island::addResource(int value)
@@ -58,7 +55,6 @@ int Island::getNbPixels()
 void Island::setQLabel(QOpenGLWidget *mainWidget)
 {
     qlabel = new QLabel(mainWidget);
-    qlabelR = new QLabel(mainWidget);
 }
 
 void Island::setLabel(int id) { label = id; }
@@ -90,7 +86,6 @@ void Island::setController(Team playerTeam) {
     path += "flag.png";
 
     setPath(path);
-    std::cout << path.toStdString() << std::endl;
 
 
 }
@@ -111,16 +106,3 @@ void Island::drawFlag()
     qlabel->setPixmap(img);
 }
 
-
-int Island::getAttackPower() const
-{
-    return attackPower;
-}
-
-void Island::drawResource()
-{
-    float x = ((float)islandPixel[0].py-100) / (float)1280 * (float)900;
-    float y = ((float)islandPixel[0].px) / (float)1280 * (float)900;
-    qlabelR->setGeometry(x, y, img.width(), img.height());
-    qlabelR->setPixmap(resource->getPixmap());
-}

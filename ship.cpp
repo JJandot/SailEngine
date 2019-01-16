@@ -32,6 +32,7 @@ Ship::Ship(Team t, QVector2D pos, QOpenGLWidget *mainWidget) : Object (mainWidge
     teamPath += "ship.png";
     setSprite(teamPath);
     this->pos = pos;
+    attackPower = 10;
 
 }
 
@@ -53,7 +54,14 @@ void Ship::drawObject() {
     }
     label->setGeometry(pos.x(), pos.y(), width, height);
     label->setPixmap(img);
+}
 
+bool Ship::docked(){
+    return pos.x() >= destination.x() - 2 &&
+            pos.x() <= destination.x() + 2 &&
+            pos.y() >= destination.y() - 2 &&
+            pos.y() <= destination.y() + 2 &&
+            onIsland;
 }
 
 QVector2D Ship::getDestination(){
@@ -62,4 +70,29 @@ QVector2D Ship::getDestination(){
 
 Team Ship::getTeam(){
     return team;
+}
+
+int Ship::getAttackPower() const
+{
+    return attackPower;
+}
+
+int Ship::getCapacityMax() const
+{
+    return capacityMax;
+}
+
+int Ship::getStorage() const
+{
+    return storage;
+}
+
+int Ship::getOnIsland() const
+{
+    return onIsland;
+}
+
+void Ship::setOnIsland(int value)
+{
+    onIsland = value;
 }

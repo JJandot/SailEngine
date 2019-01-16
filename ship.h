@@ -22,6 +22,15 @@ public:
     void drawObject() override;
     Team getTeam();
 
+    int getAttackPower() const;
+    int getCapacityMax() const;
+    int getStorage() const;
+
+    int getOnIsland() const;
+
+    void setOnIsland(int value);
+    bool docked();
+
 private:
     int controlledBy;
 
@@ -30,6 +39,12 @@ private:
 
     std::string resourceName;
     int resourceCost;
+
+    int attackPower;
+    int capacityMax;
+    int storage;
+
+    int onIsland = -1;
 
     Team team;
     QString teamPath;
