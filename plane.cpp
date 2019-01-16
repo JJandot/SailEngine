@@ -106,6 +106,7 @@ void Plane::init()
         for(int i = 0; i < nbVertices; ++i){
             for(int j = 0; j < nbVertices; ++j){
                 int gray = qGray(img.pixel(i * ratio, j * ratio));
+                if(gray > 150) gray = 150;
                 //printf("test(%d;%d) %d = %lf\n",i,j, gray, (double) gray/255);
                 grayLevelHeightmap.push_back((double) gray/255);
             }

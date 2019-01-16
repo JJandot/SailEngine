@@ -1,5 +1,12 @@
 #include "resource.h"
 
+Resource::Resource()
+{
+    name = "";
+    value = 0;
+    max = 0;
+}
+
 Resource::Resource(std::string _name, int _value, int _max)
 {
     name = _name;
@@ -26,6 +33,10 @@ void Resource::addNbResources(int _value)
         value = 0;
     if(value > max)
         value = max;
+}
+
+void Resource::setName(std::string _name) {
+    name = _name;
 }
 
 std::string Resource::getName()

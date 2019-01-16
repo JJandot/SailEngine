@@ -105,6 +105,7 @@ protected:
     void initObjects();
     void drawObjects();
     void drawIslands();
+    void initResources();
 
 
 private:
@@ -125,6 +126,7 @@ private:
     Camera camera;
     Controller controller;
     Island islands[256]; void initIslands(QString path);
+    Resource resources[256];
 
     int timeFps;
 

@@ -11,6 +11,7 @@
 class Resource
 {
 public:
+    Resource();
     Resource(std::string _name, int _value, int _max);
 
     bool operator==(const Resource& r);
@@ -22,6 +23,7 @@ public:
     void modifyMaxResources(int _max);
 
     std::string getName();
+    void setName(std::string _name);
 
 private:
     int value;

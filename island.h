@@ -24,19 +24,20 @@ class Island
 public:
     Island();
     Island(int labelId);
-    Island(int labelId, QList<Resource> resources);
+    Island(int labelId, Resource *res);
 
     void harvest(Resource r, int _value);
 
-    void addResources(QList<Resource> res);
+    void addResource(int value);
     void addPixels(QList<Pixel> px);
     void addPixel(Pixel px);
     void removeAllPixels();
     void setController(Team playerTeam);
     void setLabel(int id);
+    void setResource(Resource *res);
 
     Team getController();
-    QList<Resource> getResources();
+    Resource* getResource();
 
     int getNbPixels();
     void setQLabel(QOpenGLWidget *mainWidget);
@@ -50,7 +51,7 @@ private:
     QLabel *qlabel;
     QPixmap img;
     // gameplay
-    QList<Resource> resources;
+    Resource *resource;
     //int playerId;
     Team team;
 

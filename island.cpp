@@ -11,18 +11,16 @@ Island::Island(int labelId)
     team = Team::NONE;
 }
 
-Island::Island(int labelId, QList<Resource> resources)
+Island::Island(int labelId, Resource *res)
 {
     label = labelId;
-    addResources(resources);
+    resource = res;
     team = Team::NONE;
 }
 
-void Island::addResources(QList<Resource> res)
+void Island::addResource(int value)
 {
-    for(Resource r : res)
-        if(!resources.contains(r))
-            res.append(res);
+    resource->addNbResources(value);
 }
 
 void Island::addPixels(QList<Pixel> px)
@@ -41,9 +39,13 @@ void Island::removeAllPixels()
     islandPixel.clear();
 }
 
+void Island::setResource(Resource *res) {
+    resource = res;
+}
+
 Team Island::getController() { return team; }
 
-QList<Resource> Island::getResources() { return resources; }
+Resource* Island::getResource() { return resource; }
 
 int Island::getNbPixels()
 {

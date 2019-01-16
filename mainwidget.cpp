@@ -129,6 +129,7 @@ void MainWidget::initializeGL()
 
 
     initIslands(":/img/labelmap2.jpg");
+    initResources();
     initObjects();
 
     controller.setIslands(islands);
@@ -261,6 +262,27 @@ void MainWidget::initIslands(QString path)
         }
     }
 }
+
+void MainWidget::initResources() {
+    bool alternate = true;
+    for(int i = 0; i < 256; i++) {
+        if(islands[i].getNbPixels() >= 150) {
+            if(alternate) {
+                resources[i].setName("wood");
+            } else {
+                resources[i].setName("food");
+            }
+            resources[i].modifyMaxResources(100);
+            resources[i].addNbResources(50);
+            alternate = !alternate;
+
+            islands[i].setResource(&resources[i]);
+            std::cout << "ile " << i << " ressource : " << islands[i].getResource()->getName() << std::endl;
+
+        }
+    }
+}
+
 void MainWidget::drawIslands(){
     for(int i = 0; i < 256; ++i){
         Team t = islands[i].getController();
