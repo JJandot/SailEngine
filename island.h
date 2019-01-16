@@ -1,11 +1,15 @@
 #ifndef ISLAND_H
 #define ISLAND_H
 
+#include <iostream>
+#include <QOpenGLWidget>
 #include <QString>
 #include <QList>
+#include <QLabel>
 #include "resource.h"
 #include "player.h"
 #include "pixel.h"
+#include "teams.h"
 
 /*
  * Les îles ont un label attribué en fonction de la islandMap
@@ -28,22 +32,27 @@ public:
     void addPixels(QList<Pixel> px);
     void addPixel(Pixel px);
     void removeAllPixels();
-    void setController(int _playerId);
+    void setController(Team playerTeam);
     void setLabel(int id);
 
-    int getController();
+    Team getController();
     QList<Resource> getResources();
 
     int getNbPixels();
+    void setQLabel(QOpenGLWidget *mainWidget);
+    void setPath(QString path);
+    void drawFlag();
 
 private:
     // engine
     int label;
     QList<Pixel> islandPixel;
-
+    QLabel *qlabel;
+    QPixmap img;
     // gameplay
     QList<Resource> resources;
-    int playerId;
+    //int playerId;
+    Team team;
 
 };
 

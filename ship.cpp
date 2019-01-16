@@ -42,10 +42,14 @@ void Ship::setDestination(QVector2D dest){
 
 void Ship::drawObject() {
     if(destination.x() != -1){
-        if(pos.x() != destination.x())
+        if(pos.x() < destination.x() - 2)
             pos.setX(pos.x() + 3);
-        if(pos.y() != destination.y())
+        else if(pos.x() > destination.x() + 2)
+            pos.setX(pos.x() - 3);
+        if(pos.y() < destination.y() - 2)
             pos.setY(pos.y() + 3);
+        else if(pos.y() > destination.y() + 2)
+            pos.setY(pos.y() - 2);
     }
     label->setGeometry(pos.x(), pos.y(), width, height);
     label->setPixmap(img);
@@ -54,4 +58,8 @@ void Ship::drawObject() {
 
 QVector2D Ship::getDestination(){
     return destination;
+}
+
+Team Ship::getTeam(){
+    return team;
 }

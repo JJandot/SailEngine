@@ -20,6 +20,7 @@ public:
     void setDestination(QVector2D dest);
     QVector2D getDestination();
     void drawObject() override;
+    Team getTeam();
 
 private:
     int controlledBy;

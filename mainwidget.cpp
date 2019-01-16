@@ -87,7 +87,6 @@ MainWidget::~MainWidget()
 void MainWidget::mousePressEvent(QMouseEvent *e)
 {
     controller.mousePressedEvent(e, ships, selectedShip);
-    ships.push_back(selectedShip);
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event)
@@ -132,7 +131,8 @@ void MainWidget::initializeGL()
     initIslands(":/img/labelmap2.jpg");
     initObjects();
 
-
+    controller.setIslands(islands);
+    controller.setImg(":/img/labelmap2.jpg");
     // Use QBasicTimer because its faster than QTimer
     timer.start(timeFps, this);
 }
@@ -223,6 +223,7 @@ void MainWidget::paintGL()
 
 
     drawObjects();
+    drawIslands();
 
 }
 
@@ -254,14 +255,31 @@ void MainWidget::initIslands(QString path)
             if(islands[i].getNbPixels() <= 150) {
                 islands[i].removeAllPixels();
             } else {
+                islands[i].setQLabel(this);
                 std::cout << "nouvelle ile " << i << "(nbPixels : " << islands[i].getNbPixels() << std::endl;
             }
         }
     }
-
-
 }
+void MainWidget::drawIslands(){
+    for(int i = 0; i < 256; ++i){
+        Team t = islands[i].getController();
+        if(t != 6){
+            islands[i].drawFlag();
+        }
+    }
+}
+
+
 
 std::vector<Ship> MainWidget::getShips(){
     return ships;
+}
+
+Plane MainWidget::getPlane(){
+    return *plane;
+}
+
+Island* MainWidget::getIsland(){
+    return islands;
 }

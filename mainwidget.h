@@ -88,6 +88,8 @@ public:
     MainWidget(int time);
     ~MainWidget();
     std::vector<Ship> getShips();
+    Plane getPlane();
+    Island *getIsland();
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
@@ -102,6 +104,7 @@ protected:
     void initTextures();
     void initObjects();
     void drawObjects();
+    void drawIslands();
 
 
 private:
@@ -126,7 +129,9 @@ private:
     int timeFps;
 
     std::vector<Ship> ships;
-    Ship selectedShip;
+    int selectedShip;
+
+    QString setFlagPath(Team t);
 
 };
 

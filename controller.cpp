@@ -10,6 +10,17 @@ void Controller::setCamera(Camera *camera)
     this->camera = camera;
 }
 
+void Controller::setIslands(Island _islands[])
+{
+    islands = _islands;
+}
+
+void Controller::setImg(QString path)
+{
+    img = QImage(path);
+    this->path = path;
+}
+
 void Controller::keyPressedEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Q) {
@@ -34,24 +45,37 @@ void Controller::keyPressedEvent(QKeyEvent *event)
     }
 }
 
-void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Ship> ships, Ship &selectedShip)
+void Controller::mousePressedEvent(QMouseEvent *event, std::vector<Ship> &ships, int &indice)
 {
     mousePressedPosition = QVector2D(event->x(), event->y());
-    debugMousePos();
+
     if(isSelected == false){
-        for(Ship o : ships){
-            if(o.contains(mousePressedPosition)){
+        for(int i = 0; i < ships.size(); ++i){
+            if(ships[i].contains(mousePressedPosition)){
                 std::cout << "click inside" << std::endl;
-                selectedShip = o;
-                selectedShip.setSelected(true);
-                selectedShip.test = "ee";
+                indice = i;
+                ships[i].setSelected(true);
                 isSelected = true;
                 return; //pour l'opti
             }
         }
     }
     else{
-        selectedShip.setDestination(QVector2D(event->x(), event->y()));
+        QVector2D dest(event->x(), event->y());
+        unsigned int value;
+        QImageReader reader(path);
+        if(reader.canRead() && reader.read(&img)) {
+            value = qRed(img.pixel(dest.y() / 900 * 1280, dest.x() / 900 * 1280));
+        }
+
+        if(value != 0){
+            if(islands[value].getController() == 6){
+                std::cout << "free island" << std::endl;
+                islands[value].setController(ships[indice].getTeam());
+            }
+        }
+        ships[indice].setDestination(dest);
+        isSelected = false;
     }
 }
 

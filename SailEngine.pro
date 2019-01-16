@@ -32,7 +32,8 @@ HEADERS += \
     resource.h \
     ia.h \
     island.h \
-    teams.h
+    teams.h \
+    pixel.h
 
 RESOURCES += \
     shaders.qrc \
